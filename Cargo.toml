@@ -1,0 +1,9 @@
+[package]
+name = "rust-etcd"
+version = "0.1.0"
+edition = "2018"
+
+[dependencies]
+etcd-client = "0.7"
+tokio = { version = "1.0", features = ["full"] }
+async-trait = "0.1.51"
