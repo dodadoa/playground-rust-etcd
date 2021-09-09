@@ -23,7 +23,7 @@ trait DB {
 }
 
 async fn connect() -> Result<Client, Error> {
-    let client = Client::connect(["localhost:2379"], None).await?;
+    let client = Client::connect(setting::ETCD_ENDPOINTS, None).await?;
     Ok(client)
 }
 
