@@ -1,5 +1,4 @@
 use etcd_client::{Client, Error};
-use async_trait::async_trait;
 pub mod setting;
 
 #[tokio::main]
@@ -17,11 +16,6 @@ async fn main() -> Result<(), Error> {
     Ok(())
 }
 
-#[async_trait]
-trait DB {
-    async fn get_value(&mut self, key: &str) -> Result<String, Error>;
-}
-
 async fn connect() -> Result<Client, Error> {
     let client = Client::connect(setting::ETCD_ENDPOINTS, None).await?;
     Ok(client)
@@ -31,8 +25,7 @@ struct EtcdClient {
     client: Client
 }
 
-#[async_trait] 
-impl DB for EtcdClient {
+impl EtcdClient {
     async fn get_value(&mut self, key: &str) -> Result<String, Error> {
         let resp = self.client.get(key, None).await?;
         let list = resp.kvs();
